@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link href="styl.css"  rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+     
+        <h:form> 
+            <fieldset>
+                <legend>nouveau client</legend>
+                
+                <h:panelGrid  cellpadding="5" columns="2" style="margin-bottom:10px">
+                    <p:outputLabel  value="identifiant :" />
+                    <p:inputText />
+                    <p:outputLabel  value="libelle :" />
+                    <p:inputText/>
+                    <p:commandButton value="valider" type="submit"/>
+                    <p:commandButton value="annuler" type="reset"/>
+                </h:panelGrid>
+                
+                
+                
+                
+                <table>
+                    <tr>
+                  <td>Nom :</td>
+                  <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+                  <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+                </tr>
+                <tr>
+                  <td>Ville :</td>
+                  <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+                  <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+                </tr>
+                <tr>
+                  <td>Adresse :</td>
+                  <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+                  <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+                </tr>
+                <tr>
+                  <td>Téléphone :</td>
+                  <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+                  <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+                </tr>
+                <tr>
+                  <td>compte principale :</td>
+                  <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+                  <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+                </tr>
+                <tr>
+                  <td><h:commandButton value="Ajouter"  rendered="#{not o.editable}"/></td>
+                  <td></td>
+                  <td></td></tr><br/>
+                </table>
+                <br/><br/><br/><br/>
+            <h:dataTable value="#{book.bookList}" var="o" styleClass="book-table" headerClass="book-table-header"
+                                            rowClasses="book-table-odd-row,book-table-even-row" >
+            <h:column  class="w">
+            <f:facet name="header">ref</f:facet>
+            <h:inputText value="#{o.ref}" size="10" rendered="#{o.editable}" />
+            <h:outputText value="#{o.ref}" rendered="#{not o.editable}" />
+            </h:column>
+            <h:column>
+            <f:facet name="header">code barre</f:facet>
+            <h:inputText value="#{o.codebarre}" size="20" rendered="#{o.editable}" />            
+            <h:outputText value="#{o.codebarre}" rendered="#{not o.editable}" />
+            </h:column>
+            <h:column>
+            <f:facet name="header">designation</f:facet>
+            <h:inputText value="#{o.price}" size="10" rendered="#{o.editable}" />
+            
+            <h:outputText value="#{o.price}" rendered="#{not o.editable}" />
+          </h:column>
+          <h:column>
+            <f:facet name="header">Quantité</f:facet>
+            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+          </h:column>
+          <h:column>
+            <f:facet name="header">prix d'achat</f:facet>
+            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+          </h:column>
+          <h:column>
+            <f:facet name="header">prix de vente</f:facet>
+            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+          </h:column>
+                 <h:column>
+             <f:facet name="header">stock d'alerte</f:facet>
+            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+          </h:column>
+          <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:commandLink value="Delete" action="#{book.deleteAction(o)}" />
+          </h:column>
+            <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:commandLink value="Edit" action="#{book.editAction(o)}" />
+          </h:column>
+        </h:dataTable>
+       </fieldset>
+      </h:form>
+    </h:body>
+</html>

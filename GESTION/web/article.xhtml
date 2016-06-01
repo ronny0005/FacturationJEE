@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link href="styl.css"  rel="stylesheet" type="text/css" />
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         
+        <h:form>
+            <fieldset>
+                <legend>ajout d'un article</legend>
+        <table>
+            <tr>
+                <td>FAMILLE :</td>
+               <td>
+                            <h:selectOneMenu>
+                                  <f:selectItem itemValue="A" itemLabel="jus" />
+                                  <f:selectItem itemValue="B" itemLabel=" bierre" />
+                                  <f:selectItem itemValue="C" itemLabel="yaourt" />
+                            </h:selectOneMenu>
+               </td>
+               <td></td>
+            </tr>
+            <tr>
+                <td>REF:</td>
+                <td><h:inputText class="requis" required="true"/></td>
+                
+                <td>CODE BARRE:</td>
+                <td><h:inputText class="requis" required="true"/></td>
+                
+            </tr>
+                <tr>
+                        <td>DESIGNATION:</td>
+                        <td><h:inputText class="requis" required="true"/></td>
+                        <td>QUANTITE:</td>
+                         <td><h:inputText class="requis" required="true"/></td>
+                </tr>
+                 <tr>
+                     <td>PRIX D'ACHAT:</td><td><h:inputText class="requis" required="true"/></td>
+                    <td> PRIX DE VENTE:</td><td><h:inputText class="requis" required="true"/></td>
+                 </tr>
+                 
+                 <tr>
+                     <td>STOCK D'ALERTE:</td><td><h:inputText class="requis" required="true"/></td>
+                 </tr>
+                <tr>
+                    <td><h:commandButton value="VALIDER" type="submit"/></td>
+                    <td><h:commandButton value="ANNULER" type="reset"/></td>
+                 </tr>
+        </table><br/><br/>
+        <p:scrollPanel style="width:800px;height:400px" mode="nativa">
+                <h:dataTable value="#{book.bookList}" var="o"                styleClass="book-table"                headerClass="book-table-header"                 rowClasses="book-table-odd-row,book-table-even-row" >
+                            <h:column>
+                            <f:facet name="header">ref</f:facet>
+                            <h:inputText value="#{o.ref}" size="10" rendered="#{o.editable}" />
+                            <h:outputText value="#{o.ref}" rendered="#{not o.editable}" />
+                            </h:column>
+                            <h:column>
+                            <f:facet name="header">code barre</f:facet>
+                            <h:inputText value="#{o.codebarre}" size="20" rendered="#{o.editable}" />            
+                            <h:outputText value="#{o.codebarre}" rendered="#{not o.editable}" />
+                            </h:column>
+                            <h:column>
+                            <f:facet name="header">designation</f:facet>
+                            <h:inputText value="#{o.price}" size="10" rendered="#{o.editable}" />
+
+                            <h:outputText value="#{o.price}" rendered="#{not o.editable}" />
+                          </h:column>
+                          <h:column>
+                            <f:facet name="header">Quantité</f:facet>
+                            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+                            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+                          </h:column>
+                          <h:column>
+                            <f:facet name="header">prix d'achat</f:facet>
+                            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+                            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+                          </h:column>
+                          <h:column>
+                            <f:facet name="header">prix de vente</f:facet>
+                            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+                            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+                          </h:column>
+                                 <h:column>
+                             <f:facet name="header">stock d'alerte</f:facet>
+                            <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+                            <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+                          </h:column>
+                          <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:commandLink value="Delete" action="#{book.deleteAction(o)}" />
+                          </h:column>
+                            <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:commandLink value="Edit" action="#{book.editAction(o)}" />
+                          </h:column>
+                        </h:dataTable>
+            </p:scrollPanel>
+       </fieldset>
+       </h:form>
+    </h:body>
+</html>
+

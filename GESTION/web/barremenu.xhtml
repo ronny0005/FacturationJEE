@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <h:form >   
+    <p:menubar>
+        <p:submenu label="File" icon="ui-icon-document">
+            <p:menuitem value="Open" url="#" />
+            <p:separator/>
+            <p:menuitem value="Quit" url="index.xhtml" />
+        </p:submenu>
+        <p:submenu label="Edit" icon="ui-icon-pencil">
+            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+        </p:submenu>
+            <p:menuitem value="client" url="client.xhtml" />
+            <p:menuitem value="articles" url="article.xhtml" />
+        <p:submenu label="collaborateurs">
+            <p:menuitem value="caissiers" url="collaborateur.xhtml" />
+            <p:menuitem value="gestionnaires" url="collaborateur.xhtml" />
+            
+        </p:submenu>
+            <p:menuitem value="Agences" url="agence.xhtml" icon="ui-icon-disk"/>
+        <p:submenu label="parametres" icon="ui-icon-gear">
+                <p:menuitem value="categorie taxe" icon="ui-icon-disk"/>
+                <p:menuitem value="taxe" url="taxe.xhtml" icon="ui-icon-disk"/>
+        </p:submenu>
+        <p:submenu label="documents" icon="ui-icon-gear">
+                <p:menuitem value="facture" url="faces/facture.xhtml" icon="ui-icon-disk"/>
+                <p:menuitem value="stocks"  icon="ui-icon-disk"/>
+        </p:submenu>
+        <p:menuitem value="Quit" url="faces/index.xhtml" />
+    </p:menubar>
+    <p:growl id="messages" showDetail="true" />
+    <p:tieredMenu style="width:200px">
+        <p:menuitem value="Save" actionListener="#{menuView.save}" update="messages" icon="ui-icon-disk" />
+        <p:menuitem value="Update" actionListener="#{menuView.update}" update="messages" icon="ui-icon-arrowrefresh-1-w" />
+        <p:menuitem value="Delete" actionListener="#{menuView.delete}" update="messages" ajax="false" icon="ui-icon-close" />
+        <p:separator />
+        <p:menuitem value="facture"  url="faces/facture.xhtml" title="xxx" />
+        <p:menuitem value="caisse" url="faces/caisse.xhtml" />
+        <p:menuitem value="collaborateur"  url="faces/collaborateur.xhtml" title="xxx" />
+    </p:tieredMenu>
+  
+</h:form>
+    </h:body>
+        
+        </html>

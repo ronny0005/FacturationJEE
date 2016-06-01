@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link href="styl.css"  rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <h:form> 
+            <fieldset>
+                <legend>gestion des articles</legend>
+        <table>
+            <tr>
+          <td>Book No :</td>
+          <td><h:inputText size="20" value="#{book.bookNo}" rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20" value="#{book.bookNo}" rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td>Product Name :</td>
+          <td><h:inputText size="20" value="#{book.productName}" rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20" value="#{book.productName}" rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td>Quantity :</td>
+          <td><h:inputText size="20" value="#{book.price}" rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20" value="#{book.price}" rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td>Price :</td>
+          <td><h:inputText size="20" value="#{book.qty}" rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20" value="#{book.qty}" rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td><p:commandButton value="Ajouter" action="#{book.addAction}" rendered="#{not o.editable}" icon="ui-icon-check"/></td>
+          <td></td>
+          <td></td></tr><br/>
+        </table><br/><br/><br/><br/><br/>
+        <p:scrollPanel style="width:800px;height:200px" mode="nativa">
+                <h:dataTable value="#{book.bookList}" var="o"
+                  styleClass="book-table"
+                  headerClass="book-table-header"
+                  rowClasses="book-table-odd-row,book-table-even-row" >
+                    <h:column>
+                    <f:facet name="header">Book No</f:facet>
+                    <h:inputText value="#{o.ref}" size="10" rendered="#{o.editable}"/>
+                    <h:outputText  value="#{o.ref}" rendered="#{not o.editable}" />
+                     </h:column>
+                     <h:column>
+                    <f:facet name="header">Product Name</f:facet>
+                    <h:inputText value="#{o.codebarre}" size="20" rendered="#{o.editable}" />            
+                    <h:outputText value="#{o.codebarre}"  rendered="#{not o.editable}" />
+                  </h:column>
+                  <h:column>
+                    <f:facet name="header">Price</f:facet>
+                    <h:inputText value="#{o.price}" size="10" rendered="#{o.editable}" />
+
+                    <h:outputText value="#{o.price}" rendered="#{not o.editable}" />
+                  </h:column>
+                  <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                    <h:inputText value="#{o.qty}" size="5" rendered="#{o.editable}" />
+                    <h:outputText value="#{o.qty}" rendered="#{not o.editable}" />
+                  </h:column>
+                  <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandLink value="Delete" action="#{book.deleteAction(o)}" />
+                  </h:column>
+                    <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:commandLink value="Edit" action="#{book.editAction(o)}" />
+                  </h:column>
+            </h:dataTable>
+        </p:scrollPanel>
+        <br/>
+        <p:commandButton value="Sauvegarder" action="#{book.saveAction}" icon="ui-icon-check" />
+
+           </fieldset>
+      </h:form>
+    </h:body>
+</html>

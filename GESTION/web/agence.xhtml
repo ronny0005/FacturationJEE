@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <link href="styl.css"  rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+        <h:form> 
+            <fieldset>
+                <legend>nouvelle agence</legend>
+        <table>
+        <tr>
+          <td>Code d'Agence :</td>
+          <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td>Nom d'Agence :</td>
+          <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td>Date de creation :</td>
+          <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+        </tr>
+        
+        <tr>
+          <td><h:commandButton value="Ajouter"  rendered="#{not o.editable}"/></td>
+          <td></td>
+          <td></td></tr><br/>
+        </table>
+            </fieldset>
+      </h:form>
+     </h:body>
+</html>

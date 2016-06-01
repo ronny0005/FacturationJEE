@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <link href="styl.css"  rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+     
+        <h:form> 
+            
+                    <h3>nouveau collaborateur </h3>
+        <table>
+        <tr>
+          <td>Code :</td>
+          <td><h:inputText size="20"  rendered="#{o.editable}"/></td>
+          <td><h:inputText size="20"  rendered="#{not o.editable}"/></td>
+        </tr>
+        <tr>
+          <td>Nom :</td>
+          <td><h:inputText size="20"  rendered="#{o.editable}" title="This tooltip is displayed when input gets the focus"/></td>
+          <td><h:inputText size="20"  rendered="#{not o.editable}" title="This tooltip is displayed when input gets the focus"/></td>
+        </tr>
+        <tr>
+          <td>Type :</td>
+          <td></td>
+          <td><h:selectOneMenu>
+                    <f:selectItem itemLabel="Selectionner un type" itemValue="" noSelectionOption="true" />
+                    <f:selectItem itemValue="A" itemLabel="A" />
+                    <f:selectItem itemValue="B" itemLabel=" B" />
+                    <f:selectItem itemValue="C" itemLabel="C" />
+              </h:selectOneMenu>
+          </td>
+        </tr>
+            <tr>
+            <td>
+                <p:commandButton value="Ajouter"  type="submit" rendered="#{not o.editable}" icon="ui-icon-check"/>
+            </td>
+            <td>
+                <p:commandButton value="Annuler"  type="reset" rendered="#{not o.editable}" icon="ui-icon-cancel" />
+            </td>
+        </tr>
+        </table><br/><br/><br/>
+
+      </h:form>
+    </h:body>
+</html>
