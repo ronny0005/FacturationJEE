@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+    <h:head>
+       <link href="styl.css"  rel="stylesheet" type="text/css" />
+    </h:head>
+    <h:body>
+         
+        <ui:composition template="barremenu.xhtml">
+            <ui:define name="contenu">
+                 
+                <h:form> 
+            <fieldset>
+                <legend>nouvelle agence</legend>
+       
+                        <h:panelGrid  cellpadding="5" columns="3" style="margin-bottom:10px">
+                            <h:outputLabel for="code">Code : </h:outputLabel>                        
+                            <h:inputText value="#{agenceBean.agence.AGcode}" id="code" required="true" requiredMessage="veuillez entrer le code de l'agence"  maxlength="10" />
+                            <p:message id="codeMessage" for="code"  />
+                             <h:outputLabel for="nom">Nom : </h:outputLabel>
+                           <h:inputText value="#{agenceBean.agence.AGnom}" id="nom" required="true" requiredMessage="veuillez entrer le nom de l'agence" maxlength="50" />
+                           <p:message id="nomMessage" for="nom" />
+                            </h:panelGrid>
+                            <p:messages globalOnly="true"  />
+                            <h:commandButton value="enregistrer"  action="#{agenceBean.enregistrerAgence()}"/>
+                            <h:commandButton value="annuler" type="reset"/>
+                        <f:view>
+
+
+                            <h:form>
+                                <h3><h:outputText value="Liste des agences"/></h3>
+                                <p:scrollPanel style="width: 1200px; height: 400px" >
+                                <p:dataTable value="#{agenceBean.listeAgence()}" var="item">
+                                    
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Code"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.AGcode}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Nom"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.AGnom}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Modifier"/>
+                                        </f:facet>
+                                        <h:link value="modifier" outcome="agenceModifier">
+                                            <f:param value="#{item.agId}" name="id_paramAgence"/>
+                                        </h:link>
+                                        
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Supprimer"/>
+                                        </f:facet>
+                                        <h:commandButton  value=" Supprimer" action="#{agenceBean.supprimerAgence()}"/>
+                                    </p:column>
+                                </p:dataTable>
+                               </p:scrollPanel>
+                            </h:form>
+                        </f:view>
+
+           
+                        
+                        
+        
+        
+        
+            </fieldset>
+           
+      </h:form>
+                   
+
+                   
+        </ui:define>
+      </ui:composition>
+            
+        
+     </h:body>
+</html>

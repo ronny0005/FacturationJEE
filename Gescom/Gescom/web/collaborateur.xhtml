@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       
+          
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      <h:head>
+        
+    </h:head>
+    <h:body>
+         
+        <ui:composition template="barremenu.xhtml">
+            <ui:define name="contenu">
+                
+                <h:form> 
+            <fieldset>
+                <legend>Nouveau collaborateur</legend>
+       
+                 <h:panelGrid  cellpadding="5" columns="2" style="margin-bottom:10px">
+                      <h:outputLabel value="Agence " />
+                      <h:selectOneMenu  value="#{collaborateurBean.collaborateur.agId}" >
+                          <f:selectItems value="#{agenceBean.maList}" /> 						
+                    </h:selectOneMenu>
+                <h:outputLabel value=" Code" />
+                <h:inputText value="#{collaborateurBean.collaborateur.COcode}"/>
+               
+               <h:outputLabel value=" Nom" />
+               <h:inputText value="#{collaborateurBean.collaborateur.COnom}"/>
+               
+               
+                <h:outputLabel value=" Type" />
+                <h:selectOneMenu value="#{collaborateurBean.collaborateur.COtype}">
+                 <f:selectItem itemValue="Gestionnaire" itemLabel="Gestionnaire" /> 
+                 <f:selectItem itemValue="Vendeur" itemLabel="vendeur" />
+                 <f:selectItem itemValue="Caissier(e)" itemLabel="Caissier(e)" />
+                </h:selectOneMenu>
+                        </h:panelGrid>
+                
+           <h:commandButton value="Enregistrer" action="#{collaborateurBean.enregistrer()}"  />
+            <h:commandButton value="Modifier" action="#" />
+            </fieldset>
+
+        
+       </h:form>
+        
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
