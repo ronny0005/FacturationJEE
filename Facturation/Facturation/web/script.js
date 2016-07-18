@@ -1,5 +1,5 @@
 jQuery(function($){
-    var lien="http://192.168.1.14:8083/api/";
+    var lien="http://86.238.71.124:8083/api/";
     var cat_tarif =0;
     var ltotalttc = Array();
     var ltotalht = Array();
@@ -159,17 +159,16 @@ jQuery(function($){
               var entete="";
             var cmpt_row=0;
             $.ajax({
-                url: lien+"addDocentete?CO_No="+depot+"&CT_Num="+$("#client").val()+"&ref=ref&N_Reglement=1&Latitude=0&Longitude=0&date=" + $.datepicker.formatDate('yy-mm-dd', new Date()),
+                url: "http://localhost:8080/Facturation/AjoutEnteteServlet?CO_No="+depot+"&CT_Num="+$("#client").val()+"&ref=ref&N_Reglement=1&Latitude=0&Longitude=0&date=" + $.datepicker.formatDate('yy-mm-dd', new Date()),
                 method: 'GET',
-                dataType: 'json',
+                dataType: 'html',
                 success: function(data) {
-                    $.each(data, function() {
-                    entete = this.DO_Piece;
+                    entete = data;
                     $('#table tr').each(function() {
                         if(cmpt_row>0){  
                             var ligne = cmpt_row*10000;
                             $.ajax({
-                                url: lien+"addDocligne?DO_Piece=" + entete + "&AR_Ref=" + $(this).find("td").eq(0).html() + "&DL_Ligne=" +ligne+"&DL_Qte=" + $(this).find("td").eq(3).html()+"&DL_Remise=0&vehicule="+vehicule+"&cr=",
+                                url: "http://localhost:8080/Facturation/AjoutLigneServlet?DO_Piece=" + entete + "&AR_Ref=" + $(this).find("td").eq(0).html() + "&DL_Ligne=" +ligne+"&DL_Qte=" + $(this).find("td").eq(3).html()+"&DL_Remise=0&vehicule="+vehicule+"&cr=",
                                 method: 'GET',
                                 dataType: 'json',
                                 success: function(data) {
@@ -181,7 +180,6 @@ jQuery(function($){
                         cmpt_row=cmpt_row+1;
                     });
                     $('.article').remove();
-                });
             }
             });
           }
