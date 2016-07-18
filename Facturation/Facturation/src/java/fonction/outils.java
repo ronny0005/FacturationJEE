@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class outils implements Serializable{
 
-    public static String lien="http://192.168.1.14:8083/api/";
+    public static String lien="http://86.238.71.124:8083/api/";
     
     
     public static Parametre connexion(String login,String mdp) {
