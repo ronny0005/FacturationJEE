@@ -5,23 +5,8 @@
  */
 package Controleur;
 
-import Modele.ArticleServeur;
-import Modele.Client;
-import Modele.CompteA;
-import Modele.Depot;
-import Modele.Facture;
-import Modele.Parametre;
-import Modele.QteStock;
-import Modele.Vehicule;
-import fonction.outils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,17 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Administrator
+ * @author T.Ron
  */
-public class ConnexionServlet extends HttpServlet {
+public class ListeFacturationServlet extends HttpServlet {
 
-    ArrayList<Facture> liste_facture = new ArrayList<Facture>();
-    ArrayList<Facture> liste_recouvrement = new ArrayList<Facture>();
-    ArrayList<Client> liste_client;
-    ArrayList<Vehicule> liste_vehicule;
-    ArrayList<ArticleServeur> liste_article;
-    ArrayList<CompteA> liste_cr;
-    outils ou;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -57,10 +35,10 @@ public class ConnexionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConnexionServlet</title>");            
+            out.println("<title>Servlet ListeFacturationServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ConnexionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListeFacturationServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -78,8 +56,7 @@ public class ConnexionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/Connexion.jsp").forward( request, response );
-        
+        processRequest(request, response);
     }
 
     /**
@@ -93,7 +70,7 @@ public class ConnexionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/ListeFacturationServlet.jsp").forward( request, response );
     }
 
     /**

@@ -1,45 +1,6 @@
 jQuery(function($){
     var lien="http://192.168.1.14:8083/api/";
-        function liste_article(){
-        $( "#designation" ).replaceWith( '<select class="form-control" id="designation" name="designation" placeholder="Désignation" />');
-        $( "#designation" ).change(function() {
-                        $( "#designation option:selected" ).each(function() {
-                             $.ajax({
-                                url: lien+"getPrixClient?AR_Ref="+$("#designation").val()+"&N_CatTarif="+$("#cat_tarif").val()+"&N_CatCompta="+$("#cat_compta").val(),
-                                method: 'GET',
-                                dataType: 'json',
-                                success: function(data) {
-                                  $.each(data, function() {
-                                          $("#reference").val(this.AR_Ref);
-                                          $("#prix").val(this.AR_PrixAch);
-                                          $("#taxe1").val(this.taxe1);
-                                          $("#taxe2").val(this.taxe2);
-                                          $("#taxe3").val(this.taxe3);
-                                  });
-                                }
-                              });
-                        });
-                  }).trigger( "change" );
-            $.ajax({
-            url: lien+'getAllArticleDispoByArRef?DE_No='+$('#depot').val(),
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-              $.each(data, function() {
-                  for(i=0;i<this.length;i++){
-                      var option = $('<option />');
-                        if(i==0)
-                          option.attr('selected','selected');
-                      
-                        option.attr('value', this[i].AR_Ref).text(this[i].AR_Design);
-                        $('#designation').append(option);
-                        
-                  }
-              });
-            }
-          });
-          }
-
+        
 $.ajax({
             url: lien+'depot',
             method: 'GET',
@@ -76,140 +37,6 @@ $.ajax({
             }
         });
         
-    $.widget( "custom.comboDepot", {
-      _create: function() {
-          
-        this.wrapper = $( "<span>" )
-          .addClass( "custom-combobox" )
-          .insertAfter( this.element );
- 
-        this.element.hide();
-        this._createAutocomplete();
-        this._createShowAllButton();
-      },
- 
-      _createAutocomplete: function() {
-        var selected = this.element.children( ":selected" ),
-          value = selected.val() ? selected.text() : "";
- 
-        this.input = $( "<input>" )
-          .appendTo( this.wrapper )
-          .val( value )
-          .attr( "title", "" )
-          .addClass( "form-control combodepot" )
-          .autocomplete({
-            delay: 0,
-            minLength: 0,
-            source: $.proxy( this, "_source" )
-          })
-          .tooltip({
-            tooltipClass: "ui-state-highlight"
-          });
- 
-        this._on( this.input, {
-            
-          autocompleteselect: function( event, ui ) {
-
-           ui.item.option.selected = true;
-                        this._trigger( "select", event, {
-              item: ui.item.option
-            });
-                                liste_article();
-
-          },
- 
-          autocompletechange: "_removeIfInvalid"
-        });
-      },
- 
-      _createShowAllButton: function() {
-        var input = this.input,
-          wasOpen = false;
- 
-        $( "<a>" )
-          .attr( "tabIndex", -1 )
-          .attr( "title", "Show All Items" )
-          .tooltip()
-          .appendTo( this.wrapper )
-          .button({
-            icons: {
-              primary: "ui-icon-triangle-1-s"
-            },
-            text: false
-          })
-          .removeClass( "ui-corner-all" )
-          .addClass( "custom-combobox-toggle ui-corner-right" )
-          .mousedown(function() {
-            wasOpen = input.autocomplete( "widget" ).is( ":visible" );
-          })
-          .click(function() {
-            input.focus();
- 
-            // Close if already visible
-            if ( wasOpen ) {
-              return;
-            }
- 
-            // Pass empty string as value to search for, displaying all results
-            input.autocomplete( "search", "" );
-          });
-      },
- 
-      _source: function( request, response ) {
-        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-        response( this.element.children( "option" ).map(function() {
-          var text = $( this ).text();
-          if ( this.value && ( !request.term || matcher.test(text) ) )
-            return {
-              label: text,
-              value: text,
-              option: this
-            };
-        }) );
-      },
- 
-      _removeIfInvalid: function( event, ui ) {
- 
-        // Selected an item, nothing to do
-        if ( ui.item ) {
-          return;
-        }
- 
-        // Search for a match (case-insensitive)
-        var value = this.input.val(),
-          valueLowerCase = value.toLowerCase(),
-          valid = false;
-        this.element.children( "option" ).each(function() {
-          if ( $( this ).text().toLowerCase() === valueLowerCase ) {
-            this.selected = valid = true;
-            return false;
-          }
-        });
- 
-        // Found a match, nothing to do
-        if ( valid ) {
-          return;
-        }
- 
-        // Remove invalid value
-        this.input
-          .val( "" )
-          .attr( "title", value + " didn't match any item" )
-          .tooltip( "open" );
-        this.element.val( "" );
-        this._delay(function() {
-          this.input.tooltip( "close" ).attr( "title", "" );
-        }, 2500 );
-        this.input.autocomplete( "instance" ).term = "";
-      },
- 
-      _destroy: function() {
-        this.wrapper.remove();
-        this.element.show();
-      }
-      
-    });
-    
     $.widget( "custom.combobox", {
       _create: function() {
           
@@ -468,7 +295,6 @@ $.ajax({
         this.element.show();
       }
     });
-       $( "#depot" ).comboDepot();
           
         $( "#client" ).comboClient();
         

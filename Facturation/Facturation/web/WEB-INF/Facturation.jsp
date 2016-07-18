@@ -17,7 +17,7 @@
 </head>
 <body>
 
-
+    <div><a id="listefac" href="">Liste facture</a></div>
  <div class="container">
    
      <div class="col-md-12">
@@ -57,8 +57,7 @@
         </div>
 		 <label for="inputdateofbirth" class="col-md-1 control-label">Depot</label>
         <div class="col-md-3">
-            <select name="depot" id="depot" class="form-control">
-            </select>
+            <input name="depot" id="depot" class="form-control" />
         </div>
 		<label for="inputdateofbirth" class="col-md-1 control-label">Collaborateur</label>
         <div class="col-md-3">
@@ -102,6 +101,8 @@
 		<th>Quantité</th>
 		<th>Montant HT</th>
 		<th>Montant TTC</th>
+                <th></th>
+                <th></th>
       </tr>
     </thead>
     <tbody>
@@ -160,7 +161,7 @@
 <div class="form-group">
 <div  class="col-md-3">
 	<div class="col-md-6">
-         <button type="button" class="btn btn-success">Annuler</button>
+         <button type="button" class="btn btn-success" id="annuler">Annuler</button>
      </div>
 	<div class="col-md-6">
             <button type="button" class="btn btn-success" id="valider">Valider</button>
@@ -170,7 +171,9 @@
    
 </div>
 </div>
-
+<div id="dialog-confirm" title="Suppression">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Voulez vous supprimez cette ligne ?</p>
+</div>
  
  
  

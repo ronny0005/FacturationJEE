@@ -12,6 +12,10 @@
         <servlet-name>FacturationServlet</servlet-name>
         <servlet-class>Controleur.FacturationServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListeFacturationServlet</servlet-name>
+        <servlet-class>Controleur.ListeFacturationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>
         <url-pattern>/ConnexionServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>FacturationServlet</servlet-name>
         <url-pattern>/FacturationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeFacturationServlet</servlet-name>
+        <url-pattern>/ListeFacturationServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

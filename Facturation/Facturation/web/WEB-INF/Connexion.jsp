@@ -9,7 +9,15 @@
 <html>
     <head>
        <link rel="stylesheet" href="style.css" media="screen" />
-        <script type="text/javascript" src="jquery.js"></script>
+         <link href="bootstrap.css" rel="stylesheet">
+ <link href="jquery-ui.css" rel="stylesheet">
+ <link href="jquery-ui.theme.css" rel="stylesheet">
+ <link href="fieldset.css" rel="stylesheet">
+<script src="jquery.js"></script>
+ <script src="jquery_ui.js"></script>
+ <script src="bootstrap-3.1.1.min.js"></script>
+ <script src="scriptCombobox.js"></script>
+ <script src="script.js"></script>
  <script type="text/javascript" language="javascript">
  jQuery(function($){
  $('.message a').click(function(){
@@ -17,16 +25,14 @@
 });
 });
  </script>
- <title>JSP Page</title>
+ <title>Connexion</title>
     </head>
     <body>
         <div class="login-page">
   <div class="form">
-    <form class="login-form">
-      <input type="text" placeholder="login"/>
-      <input type="password" placeholder="mot de passe"/>
-      <button>Connexion</button>
-    </form>
+      <input type="text" placeholder="login" id="login" name="login"/>
+      <input type="password" placeholder="mot de passe" id="mdp" name="mdp" />
+      <button id="connexion">Connexion</button>
   </div>
 </div>
     </body>
