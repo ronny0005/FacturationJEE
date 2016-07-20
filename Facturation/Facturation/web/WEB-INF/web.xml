@@ -24,6 +24,10 @@
         <servlet-name>AjoutLigneServlet</servlet-name>
         <servlet-class>Controleur.AjoutLigneServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RecouvrementServlet</servlet-name>
+        <servlet-class>Controleur.RecouvrementServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>
         <url-pattern>/ConnexionServlet</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>AjoutLigneServlet</servlet-name>
         <url-pattern>/AjoutLigneServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecouvrementServlet</servlet-name>
+        <url-pattern>/RecouvrementServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

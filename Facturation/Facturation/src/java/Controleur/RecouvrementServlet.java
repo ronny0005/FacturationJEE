@@ -5,7 +5,6 @@
  */
 package Controleur;
 
-import fonction.outils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Administrator
+ * @author T.Ron
  */
-public class AjoutLigneServlet extends HttpServlet {
+public class RecouvrementServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +35,10 @@ public class AjoutLigneServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AjoutLigneServlet</title>");            
+            out.println("<title>Servlet RecouvrementServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AjoutLigneServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RecouvrementServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,18 +56,8 @@ public class AjoutLigneServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int DL_Ligne= Integer.parseInt(request.getParameter("DL_Ligne"));
-        String entete= request.getParameter("DO_Piece");
-        String ar_ref= request.getParameter("AR_Ref");        
-        int DL_Qte= Integer.parseInt(request.getParameter("DL_Qte"));     
-        String vehicule= "";//request.getParameter("vehicule");     
-        int DL_Remise= Integer.parseInt(request.getParameter("DL_Remise"));     
-        String cr= request.getParameter("cr");
-        System.out.println(DL_Ligne);
-        int id= outils.ajoutLigneServeur(entete,ar_ref,DL_Ligne, DL_Qte, DL_Remise,vehicule,cr);
-        request.setAttribute("myStation", id);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/AjoutLigne.jsp").forward( request, response );
-                          
+        this.getServletContext().getRequestDispatcher("/WEB-INF/Recouvrement.jsp").forward( request, response );
+        
     }
 
     /**

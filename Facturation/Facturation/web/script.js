@@ -1,5 +1,5 @@
 jQuery(function($){
-    var lien="http://86.238.71.124:8083/api/";
+    var lien="http://192.168.1.14:8083/api/";
     var cat_tarif =0;
     var ltotalttc = Array();
     var ltotalht = Array();
@@ -15,6 +15,7 @@ jQuery(function($){
     var affaire="";
     var vehicule="";
     var depot="";
+    var co_no="";
     var modification=false;
     var position=0;
     
@@ -111,6 +112,7 @@ jQuery(function($){
             }
             });
               depot = this.DE_No;
+              co_no= this.CO_No;
               vehicule=this.vehicule;
               $.ajax({
             url: lien+'depot',
@@ -155,11 +157,23 @@ jQuery(function($){
                 }
                 return false;
           }
+          
+          function ajoutLigne(entete,AR_Ref,DL_Ligne,DL_Qte,DL_Remise,vehicule,cr){
+              $.ajax({
+                    url: "http://localhost:8080/Facturation/AjoutLigneServlet?DO_Piece=" + entete + "&AR_Ref=" +AR_Ref + "&DL_Ligne=" +DL_Ligne+"&DL_Qte=" + DL_Qte+"&DL_Remise="+DL_Remise+"&vehicule="+vehicule+"&cr="+cr,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data=="0")
+                            ajoutLigne(entete,AR_Ref,DL_Ligne,DL_Qte,DL_Remise,vehicule,cr);
+                    }
+                });
+          }
           function ajoutEnteteLigne (){
               var entete="";
             var cmpt_row=0;
             $.ajax({
-                url: "http://localhost:8080/Facturation/AjoutEnteteServlet?CO_No="+depot+"&CT_Num="+$("#client").val()+"&ref=ref&N_Reglement=1&Latitude=0&Longitude=0&date=" + $.datepicker.formatDate('yy-mm-dd', new Date()),
+                url: "http://localhost:8080/Facturation/AjoutEnteteServlet?CO_No="+co_no+"&CT_Num="+$("#client").val()+"&ref=ref&N_Reglement=1&Latitude=0&Longitude=0&date=" + $.datepicker.formatDate('yy-mm-dd', new Date()),
                 method: 'GET',
                 dataType: 'html',
                 success: function(data) {
@@ -167,15 +181,7 @@ jQuery(function($){
                     $('#table tr').each(function() {
                         if(cmpt_row>0){  
                             var ligne = cmpt_row*10000;
-                            $.ajax({
-                                url: "http://localhost:8080/Facturation/AjoutLigneServlet?DO_Piece=" + entete + "&AR_Ref=" + $(this).find("td").eq(0).html() + "&DL_Ligne=" +ligne+"&DL_Qte=" + $(this).find("td").eq(3).html()+"&DL_Remise=0&vehicule="+vehicule+"&cr=",
-                                method: 'GET',
-                                dataType: 'json',
-                                success: function(data) {
-                                    $.each(data, function() {
-                                    });
-                                }
-                            }); 
+                            ajoutLigne(entete,$(this).find("td").eq(0).html(),ligne,$(this).find("td").eq(3).html(),0,"","");
                         }
                         cmpt_row=cmpt_row+1;
                     });
@@ -392,7 +398,7 @@ function recharge(){
           
          
         $.ajax({
-            url: lien+'clients?op=YDE',
+            url: lien+'clients?op=DLA',
             method: 'GET',
             dataType: 'json',
             success: function(data) {

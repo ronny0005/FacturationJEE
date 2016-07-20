@@ -1,5 +1,5 @@
 jQuery(function($){
-    var lien="http://86.238.71.124:8083/api/";
+    var lien="http://192.168.1.14:8083/api/";
         
 $.ajax({
             url: lien+'depot',
