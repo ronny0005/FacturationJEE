@@ -75,7 +75,7 @@
         <input class="form-control" id="reference" name="reference" placeholder="Référence" />
     
      </div>
-	<div class="col-md-5">
+	<div class="col-md-4">
         <input class="form-control" id="designation" name="designation" placeholder="Désignation" />
      
      </div>
@@ -83,7 +83,10 @@
           <input type="text" class="form-control" id="prix" name="prix" placeholder="P.U" />
      </div>
 	 <div class="col-md-2">
-          <input type="text" class="form-control" id="quantite" placeholder="Quantité" />
+          <input type="text" class="form-control" id="quantite_stock" placeholder="Quantité en stock" />
+     </div>
+	 <div class="col-md-1">
+          <input type="text" class="form-control" id="quantite" placeholder="Qté" />
      </div>
 	 
 	 <div class="col-md-1">

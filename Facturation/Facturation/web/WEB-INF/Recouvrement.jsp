@@ -89,10 +89,9 @@
                                 <tr>
                                     <th>Date</th>
                                     <th>Libelle</th>
-                                    <th>Montant</th>
-                                    <th>Solde</th>
-                                    <th>Caisse</th>
-                                    <th>Caissier</th>
+                                    <th>Référence</th>
+                                    <th>Avance</th>
+                                    <th>TTC</th>
                                 </tr>
                             </thead>
                             <tbody>

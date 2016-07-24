@@ -13,6 +13,8 @@ jQuery(function ($) {
     var vehicule="";
     var depot="";
     var co_no="";
+    var Val_RG_Piece="";
+    var Mtt_RG_Piece="";
     
     function verifEntete() {
         if ($("#client option:selected").val() != "" && $("#depot").val() != "") {
@@ -77,29 +79,31 @@ jQuery(function ($) {
 
     function rechercherFacture() {
         $.ajax({
-            url: lien + "getFactureCO?CO_No=" + co_no + "&datedeb=0datefin=0&CT_Num=" + $("#client").val(),
+            url: lien + "getFactureCO?CO_No=" + co_no + "&datedeb=0&datefin=0&CT_Num=" + $("#client").val(),
             method: 'GET',
             dataType: 'json',
             success: function (data) {
-                alert(data);
-                $(".facture").remove();
-                d = data.data;
-                for (var mi = 0; mi < d.length; mi++) {
-                    nbarticle++;
-                    classe = "";
-                    if (nbreglement % 2 === 0)
-                        classe = "info";
-                    $("#tableFacture").append("<tr class= 'facture'" + classe + "' id='reglement_" + d[mi].RG_Piece + "'><td>" + d[mi].RG_Date + "</td>\n\
-                                        <td>" + d[mi].RG_Libelle + "</td><td>" + d[mi].RG_Montant + "</td><td>" + d[mi].RG_Montant + "</td>\n\
-                                         <td>" + d[mi].CA_No + "</td><td>" + d[mi].CO_NoCaissier + "</td>");
-//                            .on('click', '#modif_art_' + num, function () {
-//                    }).on('click', '#suppr_art_' + num, function () {
-//                    });
-                }
-
+                $.each(data, function() {
+                    $(".facture").remove();
+                    for(i=0;i<this.length;i++){
+                        classe = "";
+                        if (nbreglement % 2 == 0)
+                            classe = "info";
+                        tableaufacture(classe,this[i].DO_Date,this[i].DO_Piece,this[i].DO_Ref,this[i].avance,this[i].ttc,this[i].CA_No,this[i].CO_NoCaissier);
+                    }
+                });
             }
         });
     }
+    
+    function tableaufacture(classe,DO_Date,DO_Piece,DO_Ref,avance,ttc){
+        $("#tableFacture").append("<tr class= 'facture'" + classe + "' id='facture_" +DO_Piece+ "'><td>"+DO_Date+"</td><td>" + DO_Piece + "</td>\n\
+<td>" + DO_Ref + "</td><td>" + avance + "</td><td>" + ttc + "</td></tr>").on('click', '#facture_'+DO_Piece, function () {
+        });
+    }
+    
+    
+    $( "#tableFacture" ).hide();
     function rechercher() {
         $.ajax({
             url: lien + 'getReglementClient?client=' + $("#client").val(),
@@ -107,24 +111,42 @@ jQuery(function ($) {
             dataType: 'json',
             success: function (data) {
                 $(".reglement").remove();
-                d = data.data;
-                for (var mi = 0; mi < d.length; mi++) {
-                    nbarticle++;
+                $.each(data, function() {
                     classe = "";
-                    if (nbreglement % 2 === 0)
-                        classe = "info";
-                    $("#tableRecouvrement").append("<tr class= 'reglement'" + classe + "' id='reglement_" + d[mi].RG_Piece + "'><td>" + d[mi].RG_Date + "</td>\n\
-                                        <td>" + d[mi].RG_Libelle + "</td><td>" + d[mi].RG_Montant + "</td><td>" + d[mi].RG_Montant + "</td>\n\
-                                         <td>" + d[mi].CA_No + "</td><td>" + d[mi].CO_NoCaissier + "</td>");
-//                            .on('click', '#modif_art_' + num, function () {
-//                    }).on('click', '#suppr_art_' + num, function () {
-//                    });
-                }
-
+                    for(i=0;i<this.length;i++){
+                        if (nbreglement % 2 === 0)
+                            classe = "info";
+                        tableauRecouvrement(classe,this[i].RG_Piece,this[i].RG_Date,this[i].RG_Libelle,this[i].RG_Montant,this[i].CA_No,this[i].CO_NoCaissier);
+                    }
+                });
             }
         });
     }
 
+
+    function tableauRecouvrement(classe,RG_Piece,RG_Date,RG_Libelle,RG_Montant,CA_No,CO_NoCaissier){
+        $("#tableRecouvrement").append("<tr class= 'reglement'" + classe + "' id='reglement_" + RG_Piece + "'><td>" + RG_Date + "</td>\n\
+                                        <td>" + RG_Libelle + "</td><td>" + RG_Montant + "</td><td>" + RG_Montant + "</td>\n\
+                                         <td>" + CA_No + "</td><td>" + CO_NoCaissier + "</td>").on('click', '#reglement_'+RG_Piece, function () {
+            RG_Piece=RG_Piece;
+            $("#tableFacture").dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Oui": function() {
+                        $( this ).dialog( "close" );
+                        supprElementTableau(nbarticle);
+                    },
+                    "Non": function() {
+                      $( this ).dialog( "close" );
+                    }
+                }
+            });
+        });
+    }
+    
     $(".multiselect").multiselect({height: 100});
     $("#dateRec").datepicker({dateFormat: "yy-mm-dd", altFormat: "yy-mm-dd"});
         

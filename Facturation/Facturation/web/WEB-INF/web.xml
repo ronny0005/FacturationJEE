@@ -28,6 +28,10 @@
         <servlet-name>RecouvrementServlet</servlet-name>
         <servlet-class>Controleur.RecouvrementServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReglementFactureServlet</servlet-name>
+        <servlet-class>Controleur.ReglementFactureServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConnexionServlet</servlet-name>
         <url-pattern>/ConnexionServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>RecouvrementServlet</servlet-name>
         <url-pattern>/RecouvrementServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReglementFactureServlet</servlet-name>
+        <url-pattern>/ReglementFactureServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

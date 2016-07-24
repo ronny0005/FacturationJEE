@@ -49,11 +49,9 @@ jQuery(function($){
                   for(i=0;i<this.length;i++){
                       var option = $('<option />');
                         if(i==0)
-                          option.attr('selected','selected');
-                      
+                            option.attr('selected','selected');
                         option.attr('value', this[i].AR_Ref).text(this[i].AR_Design);
                         $('#designation').append(option);
-                        
                   }
               });
             }
@@ -113,7 +111,23 @@ jQuery(function($){
             });
               depot = this.DE_No;
               co_no= this.CO_No;
-              vehicule=this.vehicule;
+            $.ajax({
+                url: lien+'depot',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                  $.each(data, function() {
+                    for(i=0;i<this.length;i++){
+                        if(depot==this[i].DE_No){
+                            $('#collaborateur').val(this[i].DE_Intitule);
+                            liste_article(this[i].DE_No);
+                        }
+                        $('#collaborateur').prop('disabled', true);
+                    }
+                  });
+                }
+            });
+            vehicule=this.vehicule;
               $.ajax({
             url: lien+'depot',
             method: 'GET',
@@ -135,6 +149,8 @@ jQuery(function($){
         }
     });
 
+    $( "#dialog-confirm" ).hide();
+    
     $('.col-md-2').on('keydown', '#quantite', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
     $("#reference").prop('disabled', true);
@@ -159,15 +175,15 @@ jQuery(function($){
           }
           
           function ajoutLigne(entete,AR_Ref,DL_Ligne,DL_Qte,DL_Remise,vehicule,cr){
-              $.ajax({
-                    url: "http://localhost:8080/Facturation/AjoutLigneServlet?DO_Piece=" + entete + "&AR_Ref=" +AR_Ref + "&DL_Ligne=" +DL_Ligne+"&DL_Qte=" + DL_Qte+"&DL_Remise="+DL_Remise+"&vehicule="+vehicule+"&cr="+cr,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        if(data=="0")
-                            ajoutLigne(entete,AR_Ref,DL_Ligne,DL_Qte,DL_Remise,vehicule,cr);
-                    }
-                });
+            $.ajax({
+                url: "http://localhost:8080/Facturation/AjoutLigneServlet?DO_Piece=" + entete + "&AR_Ref=" +AR_Ref + "&DL_Ligne=" +DL_Ligne+"&DL_Qte=" + DL_Qte+"&DL_Remise="+DL_Remise+"&vehicule="+vehicule+"&cr="+cr,
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if(data=="0")
+                        ajoutLigne(entete,AR_Ref,DL_Ligne,DL_Qte,DL_Remise,vehicule,cr);
+                }
+            });
           }
           function ajoutEnteteLigne (){
               var entete="";
@@ -186,7 +202,7 @@ jQuery(function($){
                         cmpt_row=cmpt_row+1;
                     });
                     $('.article').remove();
-            }
+                }
             });
           }
 	$('.message a').click(function(){
@@ -242,7 +258,6 @@ jQuery(function($){
                 recharge();
                 $("#quantite").val("");
                 modification=false;
-                
             }
         });
         
@@ -258,8 +273,9 @@ jQuery(function($){
             method: 'GET',
             dataType: 'json',
             success: function(data) {
-              $.each(data, function() {
+                $.each(data, function() {
                if(this.AS_QteSto>0){
+                   
                 var ref = $("#designation").val();
 		var design = $("#designation option:selected").text();
 		var client = $("#client").val();
@@ -299,16 +315,16 @@ jQuery(function($){
 function recharge(){
     var classe ="";
     for(i=0;i<nbarticle;i++){
-        if(i%2==0){
+        if((i+1)%2==0){
             classe="info";
         }
-        rechargeTableau(lreference[i],ldesignation[i],classe,i,lqte[i],lprix[i],ltotalttc[i],ltotalht[i]);
+        rechargeTableau(lreference[i],ldesignation[i],classe,(i+1),lqte[i],lprix[i],ltotalttc[i],ltotalht[i]);
     }
 }
-        function rechargeTableau(ref,design,classe,nbarticle,qte,prix,montantttc,montantht){
-            $( "#table" ).append( "<tr class='article "+classe+"' id='article_"+nbarticle+"'><td>"+ref+"</td>\n\
+        function rechargeTableau(ref,design,classe,valeur,qte,prix,montantttc,montantht){
+            $( "#table" ).append( "<tr class='article "+classe+"' id='article_"+valeur+"'><td>"+ref+"</td>\n\
                                         <td>"+design+"</td><td>"+prix+"</td><td>"+qte+"</td>\n\
-<td>"+montantht+"</td><td>"+montantttc+"</td><td id='modif_art_"+nbarticle+"'>M</td><td id='suppr_art_"+nbarticle+"'>X</td></tr>").on('click', '#suppr_art_'+nbarticle, function () {                              
+<td>"+montantht+"</td><td>"+montantttc+"</td><td id='modif_art_"+valeur+"'>M</td><td id='suppr_art_"+valeur+"'>X</td></tr>").on('click', '#suppr_art_'+valeur, function () {                              
     $( "#dialog-confirm" ).dialog({
 				  resizable: false,
 				  height: "auto",
@@ -317,7 +333,7 @@ function recharge(){
 				  buttons: {
 					"Oui": function() {
                                             $( this ).dialog( "close" );
-                                            supprElementTableau(nbarticle);
+                                            supprElementTableau(valeur);
                                             
 					},
 					"Non": function() {
@@ -325,12 +341,12 @@ function recharge(){
 					}
 				  }
 				  });
-        }).on('click', '#modif_art_'+nbarticle, function () {
+        }).on('click', '#modif_art_'+valeur, function () {
             $('#prix').val(prix);
             $('#reference').val(ref);
             $('#designation').val(ref);
             $('#quantite').val(qte);
-            position=nbarticle;
+            position=valeur;
             modification=true;
         });
         }

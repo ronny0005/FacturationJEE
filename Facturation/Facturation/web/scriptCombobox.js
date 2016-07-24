@@ -20,16 +20,15 @@ $.ajax({
           });
         
 $.ajax({
-            url: lien+'clients?op=YDE',
+            url: lien+'clients?op=DLA',
             method: 'GET',
             dataType: 'json',
             success: function(data) {
               $.each(data, function() {
-                  for(i=0;i<this.length;i++){
-                      var option = $('<option />');
-                      if(i==0)
-                          option.attr('selected','selected');
-                      
+                    for(i=0;i<this.length;i++){
+                        var option = $('<option />');
+                        if(i==0)
+                            option.attr('selected','selected');
                         option.attr('value', this[i].CT_Num).text(this[i].CT_Intitule);
                         $('#client').append(option);
                   }
