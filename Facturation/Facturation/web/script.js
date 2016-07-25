@@ -1,4 +1,4 @@
-jQuery(function($){
+jQuery(function($){ 
     var lien="http://192.168.1.14:8083/api/";
     var cat_tarif =0;
     var ltotalttc = Array();
@@ -18,7 +18,8 @@ jQuery(function($){
     var co_no="";
     var modification=false;
     var position=0;
-    
+    var entete="";
+    var totalttc=0;
     
     function liste_article(ndepot){
         $( "#designation" ).replaceWith( '<select class="form-control" id="designation" name="designation" placeholder="Désignation" />');
@@ -30,11 +31,22 @@ jQuery(function($){
                                 dataType: 'json',
                                 success: function(data) {
                                   $.each(data, function() {
-                                          $("#reference").val(this.AR_Ref);
-                                          $("#prix").val(this.AR_PrixAch);
-                                          $("#taxe1").val(this.taxe1);
-                                          $("#taxe2").val(this.taxe2);
-                                          $("#taxe3").val(this.taxe3);
+                                        $.ajax({
+                                        url: lien+'isStock?AR_Ref='+$("#designation").val()+'&DE_No='+depot,
+                                        method: 'GET',
+                                        dataType: 'json',
+                                        success: function(data) {
+                                            $.each(data, function() {
+                                                $("#quantite_stock").val(this.AS_QteSto);
+                                            });
+                                        }
+                                        });
+                                        $("#reference").val(this.AR_Ref);
+                                        $("#prix").val(this.AR_PrixAch);
+                                        $("#taxe1").val(this.taxe1);
+                                        $("#taxe2").val(this.taxe2);
+                                        $("#taxe3").val(this.taxe3);
+                                          
                                   });
                                 }
                               });
@@ -186,7 +198,7 @@ jQuery(function($){
             });
           }
           function ajoutEnteteLigne (){
-              var entete="";
+              
             var cmpt_row=0;
             $.ajax({
                 url: "http://localhost:8080/Facturation/AjoutEnteteServlet?CO_No="+co_no+"&CT_Num="+$("#client").val()+"&ref=ref&N_Reglement=1&Latitude=0&Longitude=0&date=" + $.datepicker.formatDate('yy-mm-dd', new Date()),
@@ -201,6 +213,8 @@ jQuery(function($){
                         }
                         cmpt_row=cmpt_row+1;
                     });
+                    
+                    reglement(entete,"reglt_"+entete);
                     $('.article').remove();
                 }
             });
@@ -211,12 +225,47 @@ jQuery(function($){
         
         $('#valider').click(function(){
             if(nbarticle>0){
-                premierArticle(false);
-                ajoutEnteteLigne();
-                vide();
+                $(".valideReglement").dialog({
+                resizable: false,
+                height: "auto",
+                width: 1000,
+                modal: true,
+                buttons: {
+                    "Valider": function() {
+                        totalttc=0;
+                        for(i=0;i<nbarticle;i++)
+                            totalttc=totalttc+ltotalttc[i];
+                        montant=0
+                        if($('#credit').is(':checked'))
+                            montant=$("#mtt_avance").val();
+                        if(totalttc>=montant){
+                        premierArticle(false);
+                        ajoutEnteteLigne();
+                        vide();
+                        $( this ).dialog( "close" );
+                        }else {alert("L'avance est superieur au total")};
+                        
+                    },
+                    "Annuler": function() {
+                      $( this ).dialog( "close" );
+                    }
+                }
+            });
             }
         });
-    
+    function reglement(DO_Piece,ref){
+        montant=0
+        if($('#credit').is(':checked'))
+            montant=$("#mtt_avance").val();
+        
+        $.ajax({
+            url: lien+"regleDocentete?DO_Piece="+DO_Piece+"&ref="+ref+"&avance="+montant,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+            }
+        });
+    }
         $('#connexion').click(function(){
             $.ajax({
             url: lien+"connect?NomUser="+$('#login').val()+"&Password="+$('mdp').val(),
@@ -224,7 +273,7 @@ jQuery(function($){
             dataType: 'json',
             success: function(data) {
                 if(this.id_parametre!=0)
-                    window.location.replace("/Facturation/MenuServlet");
+                    window.location.replace("/Facturation/MenuServlet?login="+$('#login').val()+"&mdp="+$('#mdp').val());
             }
             });
         });
@@ -237,6 +286,8 @@ jQuery(function($){
             if(modification==false){
                 if(verifEntete())
                     AjoutArticle();
+                else 
+                    alert("le champ client ou quantite est vide");
             }else{
                 var qte =$("#quantite").val();
                 var prix = $("#prix").val();
@@ -258,6 +309,20 @@ jQuery(function($){
                 recharge();
                 $("#quantite").val("");
                 modification=false;
+            }
+        });
+        
+        $('#credit').click(function(){
+            if($('#credit').is(':checked')){
+                $('#comptant').prop('checked', false);
+                $('#mtt_avance').prop('disabled', false);
+            }
+        });
+        
+        $('#comptant').click(function(){
+            if($('#comptant').is(':checked')){
+                $('#credit').prop('checked', false);
+                $('#mtt_avance').prop('disabled', true);
             }
         });
         
@@ -410,6 +475,7 @@ function recharge(){
             $("#totaltva").html("0");
             $("#totalprecompte").html("0");
             $("#totalmarge").html("0");
+            nbarticle=0;
 	}
           
          
@@ -431,4 +497,10 @@ function recharge(){
             }
           });
     $( "#collaborateur" ).combobox();
+    $('#quantite_stock').prop('disabled', true);
+    $('#n_doc').prop('disabled', true);
+    
+    $('#mtt_avance').prop('disabled', true);
+    $( ".valideReglement" ).hide();
+     
 });

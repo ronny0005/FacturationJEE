@@ -28,7 +28,7 @@
      <label for="inputfirstname" class="col-md-1 control-label">
        N Doc</label>
      <div class="col-md-3">
-          <input type="text" class="form-control" id="inputfirstname" placeholder="N Document" />
+          <input type="text" class="form-control" id="n_doc" placeholder="N Document" />
      </div>
 	 
 	 <label for="inputfirstname" class="col-md-1 control-label">
@@ -61,8 +61,7 @@
         </div>
 		<label for="inputdateofbirth" class="col-md-1 control-label">Collaborateur</label>
         <div class="col-md-3">
-            <select name="collaborateur" id="collaborateur" class="form-control">
-            </select>
+            <input name="collaborateur" id="collaborateur" class="form-control"/>
         </div>
      </div>
 </form>
@@ -178,7 +177,28 @@
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Voulez vous supprimez cette ligne ?</p>
 </div>
  
- 
- 
+ <div class="valideReglement">
+     <h4>Mode de règlement : </h4>
+     <label for="inputdateofbirth" class="col-md-1 control-label">Comptant</label>
+        <div class="col-md-1">
+            <input type="checkbox" id="comptant" class="checkbox"/>
+        </div>
+    <label for="inputdateofbirth" class="col-md-1 control-label">Crédit</label>
+        <div class="col-md-1">
+            <input type="checkbox" id="credit" />
+        </div>
+    <label for="inputdateofbirth" class="col-md-2 control-label">Mode de réglement</label>
+        <div class="col-md-2">
+            <select type="checkbox" id="mode_reglement" class="form-control"> 
+                <option value="">Espèce</option>
+                <option value="">Chèque</option>
+                <option value="">Carte</option>
+            </select> 
+        </div>
+    <label for="inputdateofbirth" class="col-md-2 control-label">Montant avance</label>
+        <div class="col-md-2">
+            <input type="input" id="mtt_avance" class="form-control"/> 
+        </div>
+ </div>
 </body>
 </html>

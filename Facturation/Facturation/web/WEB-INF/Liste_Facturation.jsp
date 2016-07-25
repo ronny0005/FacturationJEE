@@ -17,5 +17,43 @@
 </head>
 <body>
  
+ <div class="container">
+   
+     <div class="col-md-12">
+
+<fieldset class="entete">
+<legend class="entete">Liste Facture</legend>
+
+<div class="form-group">
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>Numéro Pièce</th>
+            <th>Reference</th>
+            <th>Date</th>
+            <th>Client</th>
+            <th>Collaborateur</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody> 
+    </tbody>
+</table>
+ </div>
+
+<div class="form-group">
+<div  class="col-md-6">
+    <div class="col-md-3">
+        <button type="button" id="nouveau" class="btn btn-success">Nouveau</button>
+    </div>
+</div>
+</div>
+   
+</div>
+</div>
+    
+<div id="dialog-confirm" title="Suppression">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Voulez vous supprimez cette ligne ?</p>
+</div>
 </body>
 </html>

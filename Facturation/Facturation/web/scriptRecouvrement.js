@@ -1,5 +1,5 @@
 jQuery(function ($) {
-    var lien = "http://192.168.1.14:8083/api/";
+     var lien="http://192.168.1.14:8083/api/";
     var cat_tarif = 0;
     var totalttc = 0;
     var totalht = 0;
@@ -90,6 +90,7 @@ jQuery(function ($) {
                         if (nbreglement % 2 == 0)
                             classe = "info";
                         tableaufacture(classe,this[i].DO_Date,this[i].DO_Piece,this[i].DO_Ref,this[i].avance,this[i].ttc,this[i].CA_No,this[i].CO_NoCaissier);
+                        
                     }
                 });
             }
@@ -99,6 +100,21 @@ jQuery(function ($) {
     function tableaufacture(classe,DO_Date,DO_Piece,DO_Ref,avance,ttc){
         $("#tableFacture").append("<tr class= 'facture'" + classe + "' id='facture_" +DO_Piece+ "'><td>"+DO_Date+"</td><td>" + DO_Piece + "</td>\n\
 <td>" + DO_Ref + "</td><td>" + avance + "</td><td>" + ttc + "</td></tr>").on('click', '#facture_'+DO_Piece, function () {
+            mtt_regl = Mtt_RG_Piece;
+            total = mtt_regl - (ttc- avance);
+            dr="0";
+            if(total>=0) {
+                dr = "1";
+                mtt_regl=ttc- avance;
+            }
+            $.ajax({
+            url: lien + "addEcheance?cr_no="+Val_RG_Piece+"&montant="+avance+"&do_piece="+DO_Piece+"&dr="+dr,
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+            
+            }
+            });
         });
     }
     
@@ -128,7 +144,8 @@ jQuery(function ($) {
         $("#tableRecouvrement").append("<tr class= 'reglement'" + classe + "' id='reglement_" + RG_Piece + "'><td>" + RG_Date + "</td>\n\
                                         <td>" + RG_Libelle + "</td><td>" + RG_Montant + "</td><td>" + RG_Montant + "</td>\n\
                                          <td>" + CA_No + "</td><td>" + CO_NoCaissier + "</td>").on('click', '#reglement_'+RG_Piece, function () {
-            RG_Piece=RG_Piece;
+            Val_RG_Piece=RG_Piece;
+            Mtt_RG_Piece=RG_Montant;
             $("#tableFacture").dialog({
                 resizable: false,
                 height: "auto",
@@ -137,7 +154,6 @@ jQuery(function ($) {
                 buttons: {
                     "Oui": function() {
                         $( this ).dialog( "close" );
-                        supprElementTableau(nbarticle);
                     },
                     "Non": function() {
                       $( this ).dialog( "close" );

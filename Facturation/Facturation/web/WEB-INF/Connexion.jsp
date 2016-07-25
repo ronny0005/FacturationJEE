@@ -8,23 +8,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <link rel="stylesheet" href="style.css" media="screen" />
-         <link href="bootstrap.css" rel="stylesheet">
- <link href="jquery-ui.css" rel="stylesheet">
- <link href="jquery-ui.theme.css" rel="stylesheet">
- <link href="fieldset.css" rel="stylesheet">
-<script src="jquery.js"></script>
- <script src="jquery_ui.js"></script>
- <script src="bootstrap-3.1.1.min.js"></script>
- <script src="scriptCombobox.js"></script>
- <script src="script.js"></script>
- <script type="text/javascript" language="javascript">
- jQuery(function($){
- $('.message a').click(function(){
-   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-});
-});
- </script>
+        <link rel="stylesheet" href="style.css" media="screen" />
+        <link href="bootstrap.css" rel="stylesheet">
+        <link href="jquery-ui.css" rel="stylesheet">
+        <link href="jquery-ui.theme.css" rel="stylesheet">
+        <link href="fieldset.css" rel="stylesheet">
+        <script src="jquery.js"></script>
+        <script src="jquery_ui.js"></script>
+        <script src="bootstrap-3.1.1.min.js"></script>
+        <script src="scriptCombobox.js"></script>
+        <script src="script.js"></script>
+        <script type="text/javascript" language="javascript">
+        jQuery(function($){
+            $('.message a').click(function(){
+                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+        });
+        </script>
  <title>Connexion</title>
     </head>
     <body>

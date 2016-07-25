@@ -24,7 +24,6 @@ import java.util.logging.Logger;
  * Created by T.Ron$ on 12/03/2016.
  */
 public class outils implements Serializable{
-
     public static String lien="http://192.168.1.14:8083/api/";
     
     
